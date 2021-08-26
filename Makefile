@@ -5,7 +5,7 @@ PKG := github.com/genuinetools/$(NAME)
 CGO_ENABLED := 1
 
 # Set any default go build tags.
-BUILDTAGS := seccomp apparmor
+BUILDTAGS := 
 
 .PHONY: everything
 everything: clean alpine busybox cl-k8s fmt lint test staticcheck vet ## Builds a static executable or package.
@@ -27,8 +27,8 @@ alpine:
 .PHONY: scanner
 scanner:
 	@echo "+ $@"
-	GOOS=linux CGO_ENABLED=$(CGO_ENABLED) $(GO) generate ./examples/$@/...
-	GOOS=linux CGO_ENABLED=$(CGO_ENABLED) $(GO) build \
+#	go generate ./examples/$@/...
+	CGO_ENABLED=$(CGO_ENABLED) $(GO) build \
 		-tags "$(BUILDTAGS) static_build" \
 		${GO_LDFLAGS_STATIC} -o $@ ./examples/$@/...
 	@echo "Static container for $@ created at: ./$@"

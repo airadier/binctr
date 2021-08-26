@@ -1,16 +1,8 @@
 package container
 
 import (
-	"github.com/containerd/containerd/contrib/seccomp"
-	aaprofile "github.com/docker/docker/profiles/apparmor"
-	"github.com/opencontainers/runc/libcontainer/apparmor"
 	"github.com/opencontainers/runc/libcontainer/specconv"
 	specs "github.com/opencontainers/runtime-spec/specs-go"
-)
-
-const (
-	// DefaultApparmorProfile is the default apparmor profile for the containers.
-	DefaultApparmorProfile = "docker-default"
 )
 
 // SpecOpts defines the options available for a spec.
@@ -41,17 +33,6 @@ func Spec(opts SpecOpts) *specs.Spec {
 
 	// Pass in any hooks to the spec.
 	spec.Hooks = opts.Hooks
-
-	// Set the default seccomp profile.
-	spec.Linux.Seccomp = seccomp.DefaultProfile(spec)
-
-	// Install the default apparmor profile.
-	if apparmor.IsEnabled() {
-		// Check if we have the docker-default apparmor profile loaded.
-		if _, err := aaprofile.IsLoaded(DefaultApparmorProfile); err == nil {
-			spec.Process.ApparmorProfile = DefaultApparmorProfile
-		}
-	}
 
 	if opts.Args != nil {
 		spec.Process.Args = opts.Args

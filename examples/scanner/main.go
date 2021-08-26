@@ -42,8 +42,9 @@ func main() {
 
 	// Create a new container spec with the following options.
 	opts := container.SpecOpts{
-		Rootless: true,
+//		Rootless: true,
 		Terminal: true,
+//                Args:     []string{"/sysdig-inline-scan.sh"},
 	}
 	spec := container.Spec(opts)
 
@@ -52,7 +53,7 @@ func main() {
 		ID:       containerID,
 		Spec:     spec,
 		Root:     root,
-		Rootless: true,
+//		Rootless: true,
 	}
 
 	// Unpack the rootfs.
@@ -67,9 +68,9 @@ func main() {
 	}
 
 	// Remove the rootfs after the container has exited.
-	if err := os.RemoveAll(defaultRootfsDir); err != nil {
-		logrus.Warnf("removing rootfs failed: %v", err)
-	}
+	//if err := os.RemoveAll(defaultRootfsDir); err != nil {
+	//	logrus.Warnf("removing rootfs failed: %v", err)
+	//}
 
 	// Exit with the container's exit status.
 	os.Exit(status)
