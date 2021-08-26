@@ -24,6 +24,15 @@ alpine:
 				${GO_LDFLAGS_STATIC} -o $@ ./examples/$@/...
 	@echo "Static container for $@ created at: ./$@"
 
+.PHONY: scanner
+scanner:
+	@echo "+ $@"
+	GOOS=linux CGO_ENABLED=$(CGO_ENABLED) $(GO) generate ./examples/$@/...
+	GOOS=linux CGO_ENABLED=$(CGO_ENABLED) $(GO) build \
+		-tags "$(BUILDTAGS) static_build" \
+		${GO_LDFLAGS_STATIC} -o $@ ./examples/$@/...
+	@echo "Static container for $@ created at: ./$@"
+
 .PHONY: busybox
 busybox:
 	@echo "+ $@"
