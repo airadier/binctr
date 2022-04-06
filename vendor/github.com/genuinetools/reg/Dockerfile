@@ -23,7 +23,7 @@ RUN set -x \
 	&& rm -rf /go \
 	&& echo "Build complete."
 
-FROM alpine:latest
+FROM alpine:3.15.4
 
 COPY --from=builder /usr/bin/reg /usr/bin/reg
 COPY --from=builder /etc/ssl/certs/ /etc/ssl/certs
