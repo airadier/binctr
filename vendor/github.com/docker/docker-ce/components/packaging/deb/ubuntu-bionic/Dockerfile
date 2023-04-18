@@ -1,7 +1,7 @@
 ARG GO_IMAGE
 FROM ${GO_IMAGE} as golang
 
-FROM ubuntu:bionic
+FROM ubuntu:18.04
 
 RUN apt-get update && apt-get install -y curl devscripts equivs git
 
