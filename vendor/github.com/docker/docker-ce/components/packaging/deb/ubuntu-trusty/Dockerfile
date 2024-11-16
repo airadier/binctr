@@ -1,7 +1,7 @@
 ARG GO_IMAGE
 FROM ${GO_IMAGE} as golang
 
-FROM ubuntu:trusty
+FROM ubuntu:trusty-20190425
 
 RUN apt-get update && apt-get install -y curl devscripts equivs git
 
